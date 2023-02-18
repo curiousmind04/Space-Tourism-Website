@@ -31,17 +31,29 @@
     --fs-600: 1.5rem;
     --fs-500: 1.25rem;
     --fs-400: 1rem;
+    --fs-200: 1rem;
   }
 }
 
 @media (min-width: 45em) {
   :root {
     /* font-sizes */
-    --fs-800: 6.25rem;
-    --fs-700: 3.5rem;
+    --fs-800: 5rem;
+    --fs-700: 2.5rem;
+    /* --fs-800: 6.25rem;
+    --fs-700: 3.5rem; */
     --fs-600: 2rem;
     --fs-500: 1.75rem;
     --fs-400: 1.125rem;
+    --fs-200: 1rem;
+  }
+}
+
+@media (min-width: 57em) {
+  :root {
+    /* font-sizes */
+    --fs-800: 6.25rem;
+    --fs-700: 3.5rem;
   }
 }
 
@@ -98,7 +110,7 @@ body {
 
 /* make images easier to work with */
 img,
-picutre {
+picture {
   max-width: 100%;
   display: block;
 }
@@ -145,6 +157,16 @@ select {
 
 .flow > *:where(:not(:first-child)) {
   margin-top: var(--flow-space, 1rem);
+}
+
+.home-spacing > * {
+  margin: 2rem 0;
+}
+
+@media (min-width: 45rem) {
+  .home-spacing > * {
+    margin: 0;
+  }
 }
 
 .flow--space-small {
@@ -226,6 +248,12 @@ select {
 }
 .letter-spacing-3 {
   letter-spacing: 2.35px;
+}
+
+@media (min-width: 35rem) {
+  .letter-spacing-3 {
+    letter-spacing: 2.7px;
+  }
 }
 
 .uppercase {
@@ -465,6 +493,54 @@ select {
   background-color: hsl(var(--clr-white) / 1);
 }
 
+/* @media (min-width: 45rem) {
+  .dot-indicators {
+    align-self: flex-start;
+  }
+} */
+
+.number-indicators {
+  flex-direction: row;
+  --gap: 1.5rem;
+}
+
+.number-indicators > * {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 2.5rem;
+  aspect-ratio: 1;
+  border: 1px solid hsl(var(--clr-white) / 0.25);
+  color: hsl(var(--clr-white));
+  background-color: hsl(var(--clr-dark));
+}
+
+.number-indicators > *:hover,
+.number-indicators > *:focus {
+  border-color: hsl(var(--clr-white) / 1);
+}
+
+.number-indicators > [aria-selected="true"] {
+  background-color: hsl(var(--clr-white));
+  color: hsl(var(--clr-dark));
+}
+
+@media (min-width: 35rem) {
+  .number-indicators > * {
+    width: 3.625rem;
+  }
+}
+
+@media (min-width: 45rem) {
+  .number-indicators {
+    flex-direction: column;
+    --gap: 2rem;
+  }
+
+  .number-indicators > * {
+    width: 5rem;
+  }
+}
+
 /* ----------------------------- */
 /* Page specific background      */
 /* ----------------------------- */
@@ -510,7 +586,7 @@ body {
 
 /* crew */
 .crew {
-  background-image: url(./assets/home/background-crew-mobile.jpg);
+  background-image: url(./assets/crew/background-crew-mobile.jpg);
 }
 
 @media (min-width: 35rem) {
@@ -523,6 +599,25 @@ body {
 @media (min-width: 45rem) {
   .crew {
     background-image: url(./assets/crew/background-crew-desktop.jpg);
+  }
+}
+
+/* technology */
+.technology {
+  background-position: top right;
+  background-image: url(./assets/technology/background-technology-mobile.jpg);
+}
+
+@media (min-width: 35rem) {
+  .technology {
+    background-position: center center;
+    background-image: url(./assets/technology/background-technology-tablet.jpg);
+  }
+}
+
+@media (min-width: 45rem) {
+  .technology {
+    background-image: url(./assets/technology/background-technology-desktop.jpg);
   }
 }
 
@@ -611,6 +706,45 @@ body {
   color: hsl(var(--clr-white) / 0.5);
 }
 
+/* technology layout */
+
+.grid-container--technology {
+  text-align: center;
+  display: grid;
+  place-items: center;
+  /* padding-inline: 1rem; */
+  padding-bottom: 4rem;
+  --flow-space: 2rem;
+  grid-template-areas:
+    "title"
+    "image"
+    "tabs"
+    "content";
+}
+
+.grid-container--technology p:not([class]) {
+  max-width: 50ch;
+  padding-inline: 1rem;
+}
+
+.grid-container--technology h1 {
+  padding-inline: 1rem;
+}
+
+.grid-container--technology > picture {
+  grid-area: image;
+  width: 100%;
+  /* padding-inline: -1rem; */
+}
+
+.grid-container--technology > .number-indicators {
+  grid-area: tabs;
+}
+
+.grid-container--technology > .technology-details {
+  grid-area: content;
+}
+
 @media (min-width: 35em) {
   .numbered-title {
     justify-self: start;
@@ -678,16 +812,46 @@ body {
         1rem,
         1fr
       );
+    grid-template-rows: auto auto auto 2rem;
     justify-items: start;
     grid-template-areas:
       ". title title ."
       ". content image ."
-      ". tabs image .";
+      ". tabs image ."
+      ". . image .";
   }
 
   .grid-container--crew > picture {
     grid-column: span 2;
     align-self: end;
     max-width: 90%;
+  }
+
+  .grid-container--technology {
+    text-align: left;
+    grid-template-columns:
+      minmax(0rem, 1fr) minmax(5rem, 1.5fr) minmax(0, 29.5rem)
+      minmax(0, 32rem);
+    grid-template-rows: 5rem 5rem auto;
+    column-gap: 3rem;
+    justify-items: start;
+    align-items: start;
+    grid-template-areas:
+      ". title title ."
+      ". . . image"
+      ". tabs content image";
+  }
+
+  .grid-container--technology > picture {
+    margin-top: 0;
+    align-self: center;
+  }
+
+  .grid-container--technology p:not([class]) {
+    padding-inline: 0rem;
+  }
+
+  .grid-container--technology h1 {
+    padding-inline: 0rem;
   }
 }
